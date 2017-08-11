@@ -1,0 +1,12 @@
+@isTest private class TestVerifyDate {
+    @isTest static void testCheckDates() {
+        Date date1 = System.today() +2;
+        Date date2 = System.today() -2;
+        VerifyDate.CheckDates(date1, date2);
+    }
+    @isTest static void testCheckDatesPos() {
+        Date date1 = System.today() -2;
+        Date date2 = System.today() +2;
+        VerifyDate.CheckDates(date1, date2);
+    }
+}
