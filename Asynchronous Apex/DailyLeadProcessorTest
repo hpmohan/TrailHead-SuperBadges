@@ -1,0 +1,23 @@
+@isTest
+private class DailyLeadProcessorTest {
+    public static String CRON_EXP = '0 0 0 15 3 ? 2022';
+    static testmethod void testScheduledJob() {
+        //Create test data: (can be created in @testSetup as well )
+        List<Lead> leadList = new List<Lead>(); 
+        for(integer i= 0; i<200; i++){
+            Lead ld= new Lead();
+            ld.LeadSource = '';
+            ld.LastName = 'Test '+i;
+            ld.Company = 'Google Inc';
+            leadList.add(ld);
+        }
+        insert leadList;
+        
+        //Start test
+        Test.startTest();
+        String jobId = System.schedule('Scheduled DailyLeadProcessor Test',CRON_EXP, new DailyLeadProcessor());
+        Test.stopTest();
+        List<Lead> updatedLeadList = [SELECT id,LeadSource FROM lead WHERE LeadSource='Dreamforce' LIMIT 200];
+        System.assertEquals(200, updatedLeadList.size());
+    }
+}
