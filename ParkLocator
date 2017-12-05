@@ -1,0 +1,7 @@
+public class ParkLocator {
+    public static List<String> country(String coutryName) {
+         parksService.ParksImplPort parkLocator = 
+            new parksService.ParksImplPort();
+        return parkLocator.byCountry(coutryName);
+    }
+}
